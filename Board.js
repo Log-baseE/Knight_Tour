@@ -106,7 +106,7 @@ class SquareBoard {
     var color = sq < 20 ? 0 : 255;
     var sz = this.size;
     path.forEach((pos, i, a) => {
-      if(sz > 200) {
+      if(!animatedInput.checked()) {
         var x = pos.col * sq - sq / 2;
         var y = pos.row * sq - sq / 2;
         var xx = x - sq / 2;
