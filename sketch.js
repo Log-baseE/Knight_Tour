@@ -1,5 +1,5 @@
 var canvasSize = 750;
-var sizeInput, button, animatedInput;
+var sizeInput, button, animatedInput, timerLabel;
 function setup() {
   var canvas = createCanvas(canvasSize, canvasSize);
   canvas.parent('canvas');
@@ -18,6 +18,10 @@ function setup() {
 
   animatedInput = createCheckbox('', true);
   animatedInput.parent('animated');
+
+  timerLabel = createElement('label');
+  timerLabel.parent('timer');
+  timerLabel.addClass('text-white');
   // animatedInput.addClass('form-check-input');
 
   var input = document.getElementById('sizeInput');
@@ -48,7 +52,11 @@ function resetSketch() {
   var boardSize = parseInt(value);
   board = new SquareBoard(boardSize);
   board.draw();
+  var startTime = new Date().getMilliseconds();
   board.solve();
+  var endTime = new Date().getMilliseconds();
+  console.log(timerLabel);
+  timerLabel.elt.innerHTML = `Elapsed time: ${(endTime-startTime)/1000} seconds`;
   board.drawPath();
 }
 
