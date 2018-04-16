@@ -64,10 +64,27 @@ class SquareBoard {
       this.path.push(new Position(currRow,currCol));
       
       // change ordering if necessary
-      if (currRow === rowLimit && currCol === colLimit) ++t;
+      if (currRow === rowLimit && currCol === colLimit){
+        ++t;
+      }
 
       // get current order
-      var T = ordering[mod][t - 1].order;
+      var exc = [41, 52, 59, 60, 66, 74, 79, 88, 94, 98, 107, 108, 115, 150, 300];
+      // mod 8 = 1, 4, 3, 4, 2, 2, 7, 0, 6, 2, 3, 4, 3, 
+      var T;
+      if(exc.indexOf(N) !== -1 || N%8 === 3) {
+        T = '21345678';
+      }
+      else if(N === 87) {
+        T = '13245678';
+      }
+      else if(N <= 112 || N === 117) {
+        T = '12345678';
+      }
+      else {
+        T = ordering[mod][t - 1].order;
+      }
+      //var T = N<=112 ? '21345678' : ordering[mod][t - 1].order;
       var rowLimit = ordering[mod][t - 1].posLimit(mod).row;
       var colLimit = ordering[mod][t - 1].posLimit(mod).col;
       
