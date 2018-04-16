@@ -1,5 +1,5 @@
 var canvasSize = 750;
-var sizeInput, button, animatedInput, timerLabel;
+var sizeInput, button, animatedInput, timerLabel, falseLabel;
 function setup() {
   var canvas = createCanvas(canvasSize, canvasSize);
   canvas.parent('canvas');
@@ -24,6 +24,10 @@ function setup() {
   timerLabel.addClass('text-white');
   // animatedInput.addClass('form-check-input');
 
+  falseLabel = createElement('label');
+  falseLabel.parent('false');
+  falseLabel.addClass('text-danger');
+
   var input = document.getElementById('sizeInput');
   input.addEventListener("keyup", function (event) {
     event.preventDefault();
@@ -34,11 +38,11 @@ function setup() {
   });
   resetSketch();
 
-  // for (var i = 7; i <= 300; i+=8) {
-  //   board = new SquareBoard(i);
-  //   board.solve();
-  //   console.log(`${i}: ${board.path.length} => ${board.path.length === i * i}`);
-  // }
+  //for (var i = 5; i <= 300; i+=1) {
+  //  board = new SquareBoard(i);
+  //  board.solve();
+  //  console.log(`${i}: ${board.path.length} => ${board.path.length === i * i}`);
+  //}
 }
 
 function resetSketch() {
@@ -46,7 +50,7 @@ function resetSketch() {
   var value = parseInt(sizeInput.value());
   // console.log(value);
   if(isNaN(value)) { error.innerHTML = "Invalid input!"; return; }
-  else if(value >= 250) { error.innerHTML = "Too big!"; return; }
+  else if(value > 300) { error.innerHTML = "Too big!"; return; }
   else { error.innerHTML = ""; }
   clear();
   var boardSize = parseInt(value);
@@ -57,6 +61,8 @@ function resetSketch() {
   var endTime = new Date().getMilliseconds();
   console.log(timerLabel);
   timerLabel.elt.innerHTML = `Elapsed time: ${(endTime-startTime)/1000} seconds`;
+  if(board.path.length !== boardSize*boardSize) falseLabel.elt.innerHTML = "Cannot find path";
+  else falseLabel.elt.innerHTML = "";
   board.drawPath();
 }
 
